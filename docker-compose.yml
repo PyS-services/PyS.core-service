@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+
+  pys.mysql:
+    image: dqmdz/mysql:5.7
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./data:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - TZ=America/Argentina/Mendoza
+    networks:
+      - pys
+
+  pys.app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - pys.mysql
+    restart: always
+    environment:
+      APP_SERVER: "pys.mysql:3306"
+      APP_DATABASE: pysmdzsrl
+      APP_USER: root
+      APP_PASSWORD: root
+      APP_PORT: 8080
+      APP_ADD-PROPERTIES: "false"
+      APP_LOGGING: "debug"
+      APP_LIVERELOAD_ENABLED: "true"
+      APP_LIVERELOAD_PORT: 35791
+      APP_OPEN-IN-VIEW: "false"
+    networks:
+      - pys
+
+  pys.cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    restart: always
+    depends_on:
+      - pys.mysql
+    ports:
+      - '8978:8978'
+    volumes:
+      - ./cloudbeaver:/opt/cloudbeaver/workspace
+    networks:
+      - pys
+
+networks:
+  pys:
+
+volumes:
+  pys.mysql:
+  pys.cloudbeaver:
