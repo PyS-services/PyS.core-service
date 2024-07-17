@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: PYS.rest CI
+name: PyS.core-service CI
 
 on:
   push:
@@ -37,6 +37,6 @@ jobs:
           image: dqmdz/pys.rest
           tags: ${VERSION}, latest, "${GITHUB_REF#refs/heads/}.$(git rev-parse --short ${GITHUB_SHA})"
           registry: docker.io
-          dockerfile: Dockerfile.github
+          dockerfile: Dockerfile
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
