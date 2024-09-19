@@ -1,5 +1,5 @@
 app:
-  port: 8080
+  port: ${APP_PORT:8080}
   logging: debug
   eureka: 8761
   server: 10.147.20.20:3306

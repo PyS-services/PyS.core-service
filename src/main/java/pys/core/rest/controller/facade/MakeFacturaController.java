@@ -1,6 +1,5 @@
 package pys.core.rest.controller.facade;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -17,12 +16,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 @RestController
-@RequestMapping("/makefactura")
+@RequestMapping({"/makefactura", "/api/core/makefactura"})
 public class MakeFacturaController {
 
     private final FacturaPdfService service;
 
-    @Autowired
     public MakeFacturaController(FacturaPdfService service) {
         this.service = service;
     }
