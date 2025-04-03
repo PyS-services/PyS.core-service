@@ -6,6 +6,9 @@ app:
   database: pysmdzsrl
   user: root
   password: root
+  mail:
+    username: uid
+    password: pwd
 
 server:
   port: ${app.port}
@@ -30,10 +33,25 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${app.mail.username}
+    password: ${app.mail.password}
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 15000
+          timeout: 15000
+          writetimeout: 15000
 
 logging:
   level:
-    pys.api.rest: ${app.logging}
+    pys.core.rest: ${app.logging}
     web: ${app.logging}
     org:
       hibernate:

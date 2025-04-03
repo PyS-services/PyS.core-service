@@ -6,13 +6,13 @@ import pys.core.rest.kotlin.model.ClienteMovimiento
 import java.util.Optional
 
 @Repository
-interface IClienteMovimientoRepository : JpaRepository<ClienteMovimiento, Long> {
+interface ClienteMovimientoRepository : JpaRepository<ClienteMovimiento, Long> {
 
-    fun findAllByClienteIdAndComprobanteIdInOrderByClientemovimientoIdDesc(
+    fun findAllByClienteIdAndComprobanteIdInOrderByClienteMovimientoIdDesc(
         clienteId: Long,
         comprobanteIds: List<Int>
     ): List<ClienteMovimiento?>?
 
-    fun findByClientemovimientoId(clientemovimientoId: Long): Optional<ClienteMovimiento?>?
+    fun findByClienteMovimientoId(clienteMovimientoId: Long): Optional<ClienteMovimiento?>?
 
 }

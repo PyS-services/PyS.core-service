@@ -6,6 +6,8 @@ import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.time.OffsetDateTime
@@ -17,7 +19,7 @@ data class ClienteMovimiento(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clave")
-    var clientemovimientoId: Long? = null,
+    var clienteMovimientoId: Long? = null,
 
     @Column(name = "mcl_neg_id")
     var negocioId: Int? = null,
@@ -33,17 +35,17 @@ data class ClienteMovimiento(
 
     @Column(name = "fechacomprob")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
-    var fechacomprobante: OffsetDateTime? = null,
+    var fechaComprobante: OffsetDateTime? = null,
 
     @Column(name = "mcl_fechavenc")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
-    var fechavencimiento: OffsetDateTime? = null,
+    var fechaVencimiento: OffsetDateTime? = null,
 
     @Column(name = "prefijo")
-    var puntoventa: Int = 0,
+    var puntoVenta: Int = 0,
 
     @Column(name = "nrocomprob")
-    var numerocomprobante: Long = 0L,
+    var numeroComprobante: Long = 0L,
 
     @Column(name = "importe")
     var importe: BigDecimal = BigDecimal.ZERO,
@@ -52,13 +54,13 @@ data class ClienteMovimiento(
     var cancelado: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "netosindescuento")
-    var netosindescuento: BigDecimal = BigDecimal.ZERO,
+    var netoSinDescuento: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "neto")
     var neto: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "netocancelado")
-    var netocancelado: BigDecimal = BigDecimal.ZERO,
+    var netoCancelado: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "montoiva")
     var iva: BigDecimal = BigDecimal.ZERO,
@@ -73,13 +75,13 @@ data class ClienteMovimiento(
     var anulada: Byte = 0,
 
     @Column(name = "tipocompro")
-    var tipocomprobante: String = "",
+    var tipoComprobante: String = "",
 
     @Column(name = "mcl_letras")
     var letras: String = "",
 
     @Column(name = "mcl_iva")
-    var alicuotaiva: BigDecimal = BigDecimal.ZERO,
+    var alicuotaIva: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "mcl_observaciones")
     var observaciones: String = "",
@@ -88,9 +90,13 @@ data class ClienteMovimiento(
     var cae: String = "",
 
     @Column(name = "mcl_caevenc")
-    var caevencimiento: String = "",
+    var caeVencimiento: String = "",
 
     @Column(name = "mcl_barras")
-    var barras: String = ""
+    var barras: String = "",
+
+    @OneToOne(optional = true)
+    @JoinColumn(name = "cgoclie", insertable = false, updatable = false)
+    var cliente: Cliente? = null,
 
 )

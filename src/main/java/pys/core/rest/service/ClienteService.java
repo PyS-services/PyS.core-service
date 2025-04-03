@@ -1,21 +1,21 @@
 package pys.core.rest.service;
 
 import org.springframework.stereotype.Service;
-import pys.core.rest.kotlin.exception.ClienteNotFoundException;
+import pys.core.rest.kotlin.exception.ClienteException;
 import pys.core.rest.kotlin.model.Cliente;
-import pys.core.rest.kotlin.repository.IClienteRepository;
+import pys.core.rest.kotlin.repository.ClienteRepository;
 
 @Service
 public class ClienteService {
 
-    private final IClienteRepository repository;
+    private final ClienteRepository repository;
 
-    public ClienteService(IClienteRepository repository) {
+    public ClienteService(ClienteRepository repository) {
         this.repository = repository;
     }
 
     public Cliente findByClienteId(Long clienteId) {
-        return repository.findByClienteId(clienteId).orElseThrow(() -> new ClienteNotFoundException(clienteId));
+        return repository.findByClienteId(clienteId).orElseThrow(() -> new ClienteException(clienteId));
     }
 
 }

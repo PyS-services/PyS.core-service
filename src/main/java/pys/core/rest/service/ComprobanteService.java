@@ -1,19 +1,18 @@
 package pys.core.rest.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pys.core.rest.kotlin.exception.ComprobanteNotFoundException;
+import pys.core.rest.kotlin.exception.ComprobanteException;
 import pys.core.rest.kotlin.model.Comprobante;
-import pys.core.rest.kotlin.repository.IComprobanteRepository;
+import pys.core.rest.kotlin.repository.ComprobanteRepository;
 
 import java.util.List;
 
 @Service
 public class ComprobanteService {
 
-    private final IComprobanteRepository repository;
+    private final ComprobanteRepository repository;
 
-    public ComprobanteService(IComprobanteRepository repository) {
+    public ComprobanteService(ComprobanteRepository repository) {
         this.repository = repository;
     }
 
@@ -23,7 +22,7 @@ public class ComprobanteService {
 
     public Comprobante findByComprobanteId(Integer comprobanteId) {
         return repository.findByComprobanteId(comprobanteId)
-                .orElseThrow(() -> new ComprobanteNotFoundException(comprobanteId));
+                .orElseThrow(() -> new ComprobanteException(comprobanteId));
     }
 
 }

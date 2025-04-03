@@ -2,12 +2,12 @@ package pys.core.rest.kotlin.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import pys.core.rest.kotlin.model.Cliente
+import pys.core.rest.kotlin.model.Articulo
 import java.util.Optional
 
 @Repository
-interface IClienteRepository : JpaRepository<Cliente, Long> {
+interface ArticuloRepository : JpaRepository<Articulo, String> {
 
-    fun findByClienteId(clienteId: Long): Optional<Cliente?>?
+    fun findByArticuloId(articuloId: String): Optional<Articulo?>?
 
 }

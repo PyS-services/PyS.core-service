@@ -2,12 +2,12 @@ package pys.core.rest.kotlin.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
-import pys.core.rest.kotlin.model.Articulo
+import pys.core.rest.kotlin.model.Empresa
 import java.util.Optional
 
 @Repository
-interface IArticuloRepository : JpaRepository<Articulo, String> {
+interface EmpresaRepository : JpaRepository<Empresa, Int> {
 
-    fun findByArticuloId(articuloId: String): Optional<Articulo?>?
+    fun findTopByOrderByEmpresaIdDesc(): Optional<Empresa?>?
 
 }

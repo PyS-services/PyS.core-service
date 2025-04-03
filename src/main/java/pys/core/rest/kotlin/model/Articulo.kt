@@ -3,7 +3,10 @@ package pys.core.rest.kotlin.model
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.OneToOne
 import jakarta.persistence.Table
+import pys.core.rest.extern.model.ProveedorDto
 import java.math.BigDecimal
 import java.util.Date
 
@@ -73,6 +76,14 @@ data class Articulo(
     var cotizacionId: Long? = null,
 
     @Column(name = "clave")
-    var autonumerico: Long? = null
+    var autonumerico: Long? = null,
+
+    @OneToOne(optional = true)
+    @JoinColumn(name = "art_prv_id", insertable = false, updatable = false)
+    var proveedor: Proveedor? = null,
+
+    @OneToOne(optional = true)
+    @JoinColumn(name = "cotizacionID", insertable = false, updatable = false)
+    var cotizacion: Cotizacion? = null,
 
 )

@@ -27,8 +27,8 @@ public class ClienteMovimientoController {
     }
 
     @GetMapping("/{clienteMovimientoId}")
-    public ResponseEntity<ClienteMovimiento> findByClientemovimientoId(@PathVariable Long clienteMovimientoId) {
-        return new ResponseEntity<>(service.findByClientemovimientoId(clienteMovimientoId),
+    public ResponseEntity<ClienteMovimiento> findByClienteMovimientoId(@PathVariable Long clienteMovimientoId) {
+        return new ResponseEntity<>(service.findByClienteMovimientoId(clienteMovimientoId),
                 HttpStatus.OK);
     }
 

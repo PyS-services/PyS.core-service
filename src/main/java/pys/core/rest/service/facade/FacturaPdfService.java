@@ -85,16 +85,16 @@ public class FacturaPdfService {
 
         Image imageQr = null;
         Empresa empresa = empresaService.findTop();
-        ClienteMovimiento clienteMovimiento = clienteMovimientoService.findByClientemovimientoId(clientemovimientoId);
+        ClienteMovimiento clienteMovimiento = clienteMovimientoService.findByClienteMovimientoId(clientemovimientoId);
         Cliente cliente = clienteService.findByClienteId(clienteMovimiento.getClienteId());
         Electronico electronico = electronicoService.findByUnique(clienteMovimiento.getComprobanteId(),
-                clienteMovimiento.getPuntoventa(), clienteMovimiento.getNumerocomprobante());
+                clienteMovimiento.getPuntoVenta(), clienteMovimiento.getNumeroComprobante());
 
         ClienteMovimiento clienteMovimientoAsociado = null;
         ComprobanteAfip comprobanteAfipAsociado = null;
         if (electronico.getClientemovimientoIdasociado() != null) {
             clienteMovimientoAsociado = clienteMovimientoService
-                    .findByClientemovimientoId(electronico.getClientemovimientoIdasociado());
+                    .findByClienteMovimientoId(electronico.getClientemovimientoIdasociado());
             log.debug("ClienteMovimientoAsociado -> {}", clienteMovimientoAsociado);
             Comprobante comprobante = comprobanteService
                     .findByComprobanteId(clienteMovimientoAsociado.getComprobanteId());
@@ -109,8 +109,8 @@ public class FacturaPdfService {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("ver", 1);
             jsonObject.put("fecha", DateTimeFormatter.ofPattern("yyyy-MM-dd")
-                    .format(ToolService.stringDDMMYYYY2OffsetDateTime(electronico.getFecha())));
-            jsonObject.put("cuit", Long.parseLong(empresa.getCuit().replaceAll("\\-", "")));
+                    .format(ToolService.stringDDMMYYYY2OffsetDateTime(Objects.requireNonNull(electronico.getFecha()))));
+            jsonObject.put("cuit", Long.parseLong(Objects.requireNonNull(empresa.getCuit()).replaceAll("-", "")));
             jsonObject.put("ptoVta", electronico.getPuntoventa());
             jsonObject.put("tipoCmp", electronico.getComprobanteId());
             jsonObject.put("nroCmp", electronico.getNumerocomprobante());
@@ -128,17 +128,13 @@ public class FacturaPdfService {
             File qrFile = new File(filePath);
             createQRImage(qrFile, url + datos, size, fileType);
             imageQr = Image.getInstance(filePath);
-        } catch (BadElementException e) {
-            log.debug("Sin Imagen");
-        } catch (WriterException e) {
-            log.debug("Sin Imagen");
-        } catch (IOException e) {
+        } catch (BadElementException | WriterException | IOException e) {
             log.debug("Sin Imagen");
         }
 
         Comprobante comprobante = comprobanteService.findByComprobanteId(electronico.getComprobanteId());
-        Boolean discrimina = false;
-        Integer copias = 2;
+        Boolean discrimina = true;
+        int copias = 2;
         List<String> discriminados = Arrays.asList("A", "M");
         if (discriminados.contains(comprobante.getLetracomprobante())) {
             discrimina = true;
@@ -159,10 +155,8 @@ public class FacturaPdfService {
 
         try {
             mergePdf(filename = path + clientemovimientoId + ".pdf", filenames);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (DocumentException | IOException e) {
+            log.debug(e.getMessage());
         }
 
         return filename;
@@ -242,7 +236,7 @@ public class FacturaPdfService {
             cell.addElement(paragraph);
             paragraph = new Paragraph(new Phrase("Cod: ", new Font(Font.HELVETICA, 6, Font.NORMAL)));
             paragraph.add(
-                    new Phrase(comprobante.getComprobanteafipId().toString(), new Font(Font.HELVETICA, 6, Font.BOLD)));
+                    new Phrase(Objects.requireNonNull(comprobante.getComprobanteafipId()).toString(), new Font(Font.HELVETICA, 6, Font.BOLD)));
             paragraph.setAlignment(Element.ALIGN_CENTER);
             cell.addElement(paragraph);
             table.addCell(cell);
@@ -261,7 +255,7 @@ public class FacturaPdfService {
             paragraph.setIndentationLeft(20);
             cell.addElement(paragraph);
             paragraph = new Paragraph(new Phrase("Fecha de Emisión: ", new Font(Font.HELVETICA, 8, Font.NORMAL)));
-            paragraph.add(new Phrase(ToolService.stringDDMMYYYY2OffsetDateTime(electronico.getFecha())
+            paragraph.add(new Phrase(ToolService.stringDDMMYYYY2OffsetDateTime(Objects.requireNonNull(electronico.getFecha()))
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), new Font(Font.HELVETICA, 8, Font.BOLD)));
             paragraph.setAlignment(Element.ALIGN_LEFT);
             paragraph.setIndentationLeft(20);
@@ -347,10 +341,10 @@ public class FacturaPdfService {
             table.addCell(cell);
             document.add(table);
 
-            Integer lineas = 24;
+            int lineas = 24;
 
             for (ArticuloMovimiento articulomovimiento : articuloMovimientoService
-                    .findAllByClientemovimientoId(clienteMovimiento.getClientemovimientoId())) {
+                    .findAllByClientemovimientoId(clienteMovimiento.getClienteMovimientoId())) {
                 lineas--;
                 table = new PdfPTable(5);
                 table.setWidthPercentage(100);
@@ -358,6 +352,7 @@ public class FacturaPdfService {
                 cell = new PdfPCell();
                 cell.setBorder(Rectangle.NO_BORDER);
                 String codigoId = articulomovimiento.getArticuloId();
+                assert codigoId != null;
                 String[] codigos = codigoId.split("\\.");
                 paragraph = new Paragraph(codigos[0], new Font(Font.HELVETICA, 8, Font.NORMAL));
                 paragraph.setAlignment(Element.ALIGN_CENTER);
@@ -420,9 +415,9 @@ public class FacturaPdfService {
                     observaciones += comprobanteAfipAsociado.getLabel();
                 }
                 if (clienteMovimientoAsociado != null) {
-                    observaciones += clienteMovimientoAsociado.getTipocomprobante()
-                            + String.format("%04d", clienteMovimientoAsociado.getPuntoventa()) + "-"
-                            + String.format("%08d", clienteMovimientoAsociado.getNumerocomprobante());
+                    observaciones += clienteMovimientoAsociado.getTipoComprobante()
+                            + String.format("%04d", clienteMovimientoAsociado.getPuntoVenta()) + "-"
+                            + String.format("%08d", clienteMovimientoAsociado.getNumeroComprobante());
                 }
             }
             observaciones += clienteMovimiento.getObservaciones();
@@ -489,7 +484,7 @@ public class FacturaPdfService {
             document.add(tableCAE);
             document.close();
         } catch (Exception ex) {
-            log.debug(ex.getMessage().toString());
+            log.debug(ex.getMessage());
         }
 
     }

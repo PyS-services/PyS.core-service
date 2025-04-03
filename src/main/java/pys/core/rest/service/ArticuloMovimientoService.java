@@ -2,16 +2,16 @@ package pys.core.rest.service;
 
 import org.springframework.stereotype.Service;
 import pys.core.rest.kotlin.model.ArticuloMovimiento;
-import pys.core.rest.kotlin.repository.IArticuloMovimientoRepository;
+import pys.core.rest.kotlin.repository.ArticuloMovimientoRepository;
 
 import java.util.List;
 
 @Service
 public class ArticuloMovimientoService {
 
-    private final IArticuloMovimientoRepository repository;
+    private final ArticuloMovimientoRepository repository;
 
-    public ArticuloMovimientoService(IArticuloMovimientoRepository repository) {
+    public ArticuloMovimientoService(ArticuloMovimientoRepository repository) {
         this.repository = repository;
     }
 
