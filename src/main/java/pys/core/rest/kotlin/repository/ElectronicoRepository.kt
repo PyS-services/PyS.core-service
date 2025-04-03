@@ -6,7 +6,7 @@ import pys.core.rest.kotlin.model.Electronico
 import java.util.Optional
 
 @Repository
-interface IElectronicoRepository : JpaRepository<Electronico, Long> {
+interface ElectronicoRepository : JpaRepository<Electronico, Long> {
 
     fun findByComprobanteIdAndPuntoventaAndNumerocomprobante(comprobanteId: Int, puntoventa: Int, numerocomprobante: Long): Optional<Electronico?>?
 

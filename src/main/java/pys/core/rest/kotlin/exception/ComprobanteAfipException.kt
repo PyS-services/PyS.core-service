@@ -1,4 +1,4 @@
 package pys.core.rest.kotlin.exception
 
-class ComprobanteAfipNotFoundException(comprobanteafipId: Int) :
+class ComprobanteAfipException(comprobanteafipId: Int) :
     RuntimeException("Cannot find ComprobanteAfip $comprobanteafipId")

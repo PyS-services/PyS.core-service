@@ -6,7 +6,7 @@ import pys.core.rest.kotlin.model.ComprobanteAfip
 import java.util.Optional
 
 @Repository
-interface IComprobanteAfipRepository : JpaRepository<ComprobanteAfip, Int> {
+interface ComprobanteAfipRepository : JpaRepository<ComprobanteAfip, Int> {
 
     fun findByComprobanteafipId(comprobanteafipId: Int): Optional<ComprobanteAfip?>?
 

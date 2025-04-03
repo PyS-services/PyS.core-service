@@ -6,7 +6,7 @@ import pys.core.rest.kotlin.model.Comprobante
 import java.util.Optional
 
 @Repository
-interface IComprobanteRepository : JpaRepository<Comprobante, Long> {
+interface ComprobanteRepository : JpaRepository<Comprobante, Long> {
 
     fun findAllByElectronicoAndAsociado(electronico: Byte, asociado: Byte): List<Comprobante?>?
 

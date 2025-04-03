@@ -6,7 +6,7 @@ import pys.core.rest.kotlin.model.ArticuloMovimiento
 
 
 @Repository
-interface IArticuloMovimientoRepository : JpaRepository<ArticuloMovimiento?, Long?> {
+interface ArticuloMovimientoRepository : JpaRepository<ArticuloMovimiento?, Long?> {
 
     fun findAllByClientemovimientoId(clientemovimientoId: Long?): List<ArticuloMovimiento?>?
 }
