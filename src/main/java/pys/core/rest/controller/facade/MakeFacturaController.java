@@ -19,7 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 @RestController
-@RequestMapping({"/makeFactura", "/api/core/makeFactura"})
+@RequestMapping({"/makefactura", "/api/core/makefactura"})
 @Slf4j
 public class MakeFacturaController {
 
