@@ -88,7 +88,7 @@ public class FacturaPdfService {
         ClienteMovimiento clienteMovimiento = clienteMovimientoService.findByClienteMovimientoId(clientemovimientoId);
         Cliente cliente = clienteService.findByClienteId(clienteMovimiento.getClienteId());
         Electronico electronico = electronicoService.findByUnique(clienteMovimiento.getComprobanteId(),
-                clienteMovimiento.getPuntoVenta(), clienteMovimiento.getNumeroComprobante());
+                clienteMovimiento.getPuntoventa(), clienteMovimiento.getNumerocomprobante());
 
         ClienteMovimiento clienteMovimientoAsociado = null;
         ComprobanteAfip comprobanteAfipAsociado = null;
@@ -344,7 +344,7 @@ public class FacturaPdfService {
             int lineas = 24;
 
             for (ArticuloMovimiento articulomovimiento : articuloMovimientoService
-                    .findAllByClientemovimientoId(clienteMovimiento.getClienteMovimientoId())) {
+                    .findAllByClientemovimientoId(clienteMovimiento.getClientemovimientoId())) {
                 lineas--;
                 table = new PdfPTable(5);
                 table.setWidthPercentage(100);
@@ -415,9 +415,9 @@ public class FacturaPdfService {
                     observaciones += comprobanteAfipAsociado.getLabel();
                 }
                 if (clienteMovimientoAsociado != null) {
-                    observaciones += clienteMovimientoAsociado.getTipoComprobante()
-                            + String.format("%04d", clienteMovimientoAsociado.getPuntoVenta()) + "-"
-                            + String.format("%08d", clienteMovimientoAsociado.getNumeroComprobante());
+                    observaciones += clienteMovimientoAsociado.getTipocomprobante()
+                            + String.format("%04d", clienteMovimientoAsociado.getPuntoventa()) + "-"
+                            + String.format("%08d", clienteMovimientoAsociado.getNumerocomprobante());
                 }
             }
             observaciones += clienteMovimiento.getObservaciones();

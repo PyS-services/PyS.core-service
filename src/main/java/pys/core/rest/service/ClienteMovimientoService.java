@@ -24,11 +24,11 @@ public class ClienteMovimientoService {
     public List<ClienteMovimiento> findAllAsociables(Long clienteId) {
         List<Integer> comprobanteIds = comprobanteService.findAllAsociables().stream()
                 .map(Comprobante::getComprobanteId).collect(Collectors.toList());
-        return repository.findAllByClienteIdAndComprobanteIdInOrderByClienteMovimientoIdDesc(clienteId, comprobanteIds);
+        return repository.findAllByClienteIdAndComprobanteIdInOrderByClientemovimientoIdDesc(clienteId, comprobanteIds);
     }
 
     public ClienteMovimiento findByClienteMovimientoId(Long clienteMovimientoId) {
-        return Objects.requireNonNull(repository.findByClienteMovimientoId(clienteMovimientoId))
+        return Objects.requireNonNull(repository.findByClientemovimientoId(clienteMovimientoId))
                 .orElseThrow(() -> new ClienteMovimientoException(clienteMovimientoId));
     }
 
