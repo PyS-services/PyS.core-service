@@ -8,11 +8,11 @@ import java.util.Optional
 @Repository
 interface ClienteMovimientoRepository : JpaRepository<ClienteMovimiento, Long> {
 
-    fun findAllByClienteIdAndComprobanteIdInOrderByClienteMovimientoIdDesc(
+    fun findAllByClienteIdAndComprobanteIdInOrderByClientemovimientoIdDesc(
         clienteId: Long,
         comprobanteIds: List<Int>
     ): List<ClienteMovimiento?>?
 
-    fun findByClienteMovimientoId(clienteMovimientoId: Long): Optional<ClienteMovimiento?>?
+    fun findByClientemovimientoId(clienteMovimientoId: Long): Optional<ClienteMovimiento?>?
 
 }

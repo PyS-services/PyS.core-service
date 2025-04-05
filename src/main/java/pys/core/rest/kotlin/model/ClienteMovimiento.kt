@@ -19,7 +19,7 @@ data class ClienteMovimiento(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clave")
-    var clienteMovimientoId: Long? = null,
+    var clientemovimientoId: Long? = null,
 
     @Column(name = "mcl_neg_id")
     var negocioId: Int? = null,
@@ -35,17 +35,17 @@ data class ClienteMovimiento(
 
     @Column(name = "fechacomprob")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
-    var fechaComprobante: OffsetDateTime? = null,
+    var fechacomprobante: OffsetDateTime? = null,
 
     @Column(name = "mcl_fechavenc")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ", timezone = "UTC")
-    var fechaVencimiento: OffsetDateTime? = null,
+    var fechavencimiento: OffsetDateTime? = null,
 
     @Column(name = "prefijo")
-    var puntoVenta: Int = 0,
+    var puntoventa: Int = 0,
 
     @Column(name = "nrocomprob")
-    var numeroComprobante: Long = 0L,
+    var numerocomprobante: Long = 0L,
 
     @Column(name = "importe")
     var importe: BigDecimal = BigDecimal.ZERO,
@@ -54,13 +54,13 @@ data class ClienteMovimiento(
     var cancelado: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "netosindescuento")
-    var netoSinDescuento: BigDecimal = BigDecimal.ZERO,
+    var netosindescuento: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "neto")
     var neto: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "netocancelado")
-    var netoCancelado: BigDecimal = BigDecimal.ZERO,
+    var netocancelado: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "montoiva")
     var iva: BigDecimal = BigDecimal.ZERO,
@@ -75,13 +75,13 @@ data class ClienteMovimiento(
     var anulada: Byte = 0,
 
     @Column(name = "tipocompro")
-    var tipoComprobante: String = "",
+    var tipocomprobante: String = "",
 
     @Column(name = "mcl_letras")
     var letras: String = "",
 
     @Column(name = "mcl_iva")
-    var alicuotaIva: BigDecimal = BigDecimal.ZERO,
+    var alicuotaiva: BigDecimal = BigDecimal.ZERO,
 
     @Column(name = "mcl_observaciones")
     var observaciones: String = "",
@@ -90,7 +90,7 @@ data class ClienteMovimiento(
     var cae: String = "",
 
     @Column(name = "mcl_caevenc")
-    var caeVencimiento: String = "",
+    var caevencimiento: String = "",
 
     @Column(name = "mcl_barras")
     var barras: String = "",
