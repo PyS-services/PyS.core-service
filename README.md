@@ -8,17 +8,18 @@ PyS Core Service is a Spring Boot-based REST API service that serves as a core c
 
 ## Features
 
-- RESTful API endpoints
-- Spring Boot 3.4.4
+- RESTful API endpoints with standardized naming conventions
+- Spring Boot 3.5.3
+- Spring Cloud 2025.0.0
 - Java 21
-- Kotlin support
-- MySQL database integration
-- PDF generation capabilities
-- OpenAPI/Swagger documentation
+- Kotlin 2.1.21
+- MySQL 9.3.0 database integration
+- PDF generation using OpenPDF 2.2.3
+- OpenAPI 3.0 documentation (SpringDoc 2.8.9)
 - Eureka client for service discovery
 - Feign client for service-to-service communication
-- Email service integration
 - Log4j2 logging
+- QR code generation with ZXing 3.5.3
 
 ## Prerequisites
 

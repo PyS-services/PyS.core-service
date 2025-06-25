@@ -19,7 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 @RestController
-@RequestMapping({"/makefactura", "/api/core/makefactura"})
+@RequestMapping({"/makeFactura", "/api/core/makeFactura"})
 @Slf4j
 public class MakeFacturaController {
 
@@ -35,9 +35,9 @@ public class MakeFacturaController {
         this.service = service;
     }
 
-    @GetMapping("/pdf/{clientemovimientoId}")
-    public ResponseEntity<Resource> makePdf(@PathVariable Long clientemovimientoId) throws FileNotFoundException {
-        String filename = facturaPdfService.generatePdf(clientemovimientoId);
+    @GetMapping("/pdf/{clienteMovimientoId}")
+    public ResponseEntity<Resource> makePdf(@PathVariable Long clienteMovimientoId) throws FileNotFoundException {
+        String filename = facturaPdfService.generatePdf(clienteMovimientoId);
         File file = new File(filename);
         InputStreamResource resource = new InputStreamResource(new FileInputStream(file));
         HttpHeaders headers = new HttpHeaders();

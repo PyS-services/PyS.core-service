@@ -12,7 +12,7 @@ import pys.core.rest.kotlin.model.ClienteMovimiento;
 import java.util.List;
 
 @RestController
-@RequestMapping("/clientemovimiento")
+@RequestMapping({"/clientemovimiento", "/api/core/clientemovimiento"})
 public class ClienteMovimientoController {
 
     private final ClienteMovimientoService service;
