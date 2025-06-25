@@ -18,15 +18,24 @@ public class FacturacionElectronicaService {
     }
 
     public FacturacionDto makeFactura(FacturacionDto facturacionDto) {
-        log.debug("Processing service makeFactura");
+        log.debug("Processing FacturacionElectronicaService. makeFactura");
         logFacturacion(facturacionDto);
         log.debug("Calling facturador");
-        return facturacionAfipClient.facturador(facturacionDto);
+        facturacionDto = facturacionAfipClient.facturador(facturacionDto);
+        log.debug("Resultado facturador");
+        logFacturacion(facturacionDto);
+        return facturacionDto;
     }
 
     private void logFacturacion(FacturacionDto facturacionDto) {
         try {
-            log.debug("FacturacionDto -> {}", JsonMapper.builder().findAndAddModules().build().writerWithDefaultPrettyPrinter().writeValueAsString(facturacionDto));
+            log.debug("FacturacionDto -> {}", JsonMapper
+                    .builder()
+                    .findAndAddModules()
+                    .build()
+                    .writerWithDefaultPrettyPrinter()
+                    .writeValueAsString(facturacionDto)
+            );
         } catch (JsonProcessingException e) {
             log.debug("FacturacionDto jsonify error -> {}", e.getMessage());
         }

@@ -10,7 +10,7 @@ import pys.core.rest.service.ElectronicoService;
 import pys.core.rest.kotlin.model.Electronico;
 
 @RestController
-@RequestMapping("/electronico")
+@RequestMapping({"/electronico", "/api/core/electronico"})
 public class ElectronicoController {
 
     private final ElectronicoService service;

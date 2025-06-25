@@ -49,6 +49,15 @@ spring:
           timeout: 15000
           writetimeout: 15000
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  metrics:
+    tags:
+      application: ${spring.application.name}
+
 logging:
   level:
     pys.core.rest: ${app.logging}

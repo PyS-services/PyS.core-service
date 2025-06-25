@@ -10,7 +10,7 @@ import pys.core.rest.service.ComprobanteService;
 import pys.core.rest.kotlin.model.Comprobante;
 
 @RestController
-@RequestMapping("/comprobante")
+@RequestMapping({"/comprobante", "/api/core/comprobante"})
 public class ComprobanteController {
 
     private final ComprobanteService service;
